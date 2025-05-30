@@ -7,5 +7,5 @@ Feature: Gerenciamento de Boards
 
   Scenario: Excluir um board
     Given que tenho um board existente
-    When envio uma requisição para excluí-lo
+    When envio uma requisição para deletar o board
     Then o board deve ser removido com sucesso

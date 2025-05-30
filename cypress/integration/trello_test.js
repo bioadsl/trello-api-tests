@@ -1,5 +1,5 @@
-const apiKey = "SUA_API_KEY";
-const token = "SEU_TOKEN";
+const apiKey = process.env.TRELLO_API_KEY;
+const token = process.env.TRELLO_API_TOKEN;
 
 cy.request({
   method: "POST",
