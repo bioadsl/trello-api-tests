@@ -1,0 +1,12 @@
+{
+  "name": "trello-api-tests",
+  "version": "1.0.0",
+  "description": "Testes automatizados BDD para API do Trello com Cypress",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^17.3.1",
+    "cypress": "^12.17.4"
+  }
+}
