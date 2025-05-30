@@ -16,6 +16,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Cache Cypress binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/Cypress
+        key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -24,8 +30,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Grant execute permission to Cypress binary
-      run: chmod +x ./node_modules/.bin/cypress
+    - name: Install Cypress binary (force download)
+      run: npx cypress install
 
     - name: Run Cypress tests
       run: npx cypress run
