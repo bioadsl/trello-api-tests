@@ -1,0 +1,10 @@
+# Ignorar o arquivo de variáveis de ambiente
+.env
+
+# Outras boas práticas:
+node_modules/
+dist/
+build/
+.DS_Store
+cypress/videos/
+cypress/screenshots/
