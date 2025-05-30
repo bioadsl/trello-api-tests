@@ -40,3 +40,7 @@ cypress/
 cypress.json             # Configuração do Cypress
 package.json             # Dependências e scripts
 README.md
+
+
+
+[![Run Cypress Tests](https://github.com/bioadsl/trello-api-tests/actions/workflows/ci.yml/badge.svg)](https://github.com/bioadsl/trello-api-tests/actions/workflows/ci.yml)
