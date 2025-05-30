@@ -20,6 +20,7 @@ module.exports = defineConfig({
       return config;
     },
     specPattern: "cypress/e2e/**/*.feature",
-    baseUrl: "https://api.trello.com"
+    baseUrl: "https://api.trello.com",
+    supportFile: false // 3️⃣ Desativa a exigência do supportFile
   }
 });
