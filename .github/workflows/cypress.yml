@@ -22,11 +22,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Add execution permission for Cypress binary
+        run: chmod +x ./node_modules/.bin/cypress
+
       - name: Install Cypress binary
         run: npx cypress install
 
       - name: Run Cypress tests
-        run: |
-          export TRELLO_API_KEY=${{ secrets.TRELLO_API_KEY }}
-          export TRELLO_API_TOKEN=${{ secrets.TRELLO_API_TOKEN }}
-          npx cypress run
+        env:
+          TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+          TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
+        run: npx cypress run
