@@ -13,31 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Cache Cypress binary
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/Cypress
-        key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Corrigir permissões do binário Cypress
+        run: chmod +x node_modules/.bin/cypress
 
-    - name: Servir app (com live-server)
-      run: |
-        npm install -g live-server
-        live-server frontend --port=5500 &
-        sleep 5
+      - name: Install Cypress binary
+        run: npx cypress install
 
-    - name: Install Cypress binary (force download)
-      run: npx --no-install -- cypress install
-
-    - name: Run Cypress tests
-      run: npx cypress run
+      - name: Debug Cypress binário
+        run: ls -l node_modules/.bin/cypress
+        
+      - name: Run Cypress tests
+        run: npx cypress run
