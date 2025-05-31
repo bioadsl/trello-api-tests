@@ -32,9 +32,29 @@ jobs:
           npx cypress install
           chmod +x ~/.cache/Cypress/*/Cypress/Cypress
 
+      # Testar se as variáveis de ambiente estão definidas
+      - name: Checar variáveis de ambiente
+        run: |
+          if [ -z "$TRELLO_API_KEY" ]; then
+            echo "TRELLO_API_KEY NÃO está definido"
+            exit 1
+          else
+            echo "TRELLO_API_KEY está definido"
+          fi
+
+          if [ -z "$TRELLO_API_TOKEN" ]; then
+            echo "TRELLO_API_TOKEN NÃO está definido"
+            exit 1
+          else
+            echo "TRELLO_API_TOKEN está definido"
+          fi
+        env:
+          TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+          TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
+
+      # Rodar testes Cypress
       - name: Rodar testes Cypress
         env:
           TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
           TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
         run: npx cypress run
-
