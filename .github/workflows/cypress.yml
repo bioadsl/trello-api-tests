@@ -22,11 +22,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Cypress binary
-        run: npx cypress install
+      - name: Install Cypress globally (resolvendo permissão!)
+        run: npm install -g cypress
 
-      - name: Corrigir permissões do Cypress
-        run: chmod +x node_modules/.bin/cypress
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Run Cypress tests
         env:
