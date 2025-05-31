@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout código
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -22,17 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Cypress globally (resolvendo permissão!)
-        run: npm install -g cypress
-
-      - name: Cache Cypress binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Run Cypress tests
-        env:
-          TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
-          TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
-        run: npx cypress run
+        run: |
+          export TRELLO_API_KEY=${{ secrets.TRELLO_API_KEY }}
+          export TRELLO_API_TOKEN=${{ secrets.TRELLO_API_TOKEN }}
+          npx cypress run
