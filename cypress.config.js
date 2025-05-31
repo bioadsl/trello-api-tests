@@ -10,19 +10,18 @@ module.exports = defineConfig({
       await addCucumberPreprocessorPlugin(on, config);
 
       // Define o bundler para processar arquivos .feature com esbuild
-      on(
-        "file:preprocessor",
-        createBundler({
-          plugins: [createEsbuildPlugin(config)],
-        })
-      );
+      on("file:preprocessor", createBundler({
+        plugins: [createEsbuildPlugin(config)],
+      }));
 
-      // Retorna a configuração final
+      // Injeta as variáveis de ambiente (GitHub Actions / .env)
+      config.env.TRELLO_API_KEY = process.env.TRELLO_API_KEY;
+      config.env.TRELLO_API_TOKEN = process.env.TRELLO_API_TOKEN;
+
       return config;
     },
-    // Padrão para encontrar os arquivos .feature
     specPattern: "cypress/e2e/**/*.feature",
     baseUrl: "https://api.trello.com",
-    supportFile: false // Desativa a exigência de um arquivo de suporte
+    supportFile: false
   }
 });
