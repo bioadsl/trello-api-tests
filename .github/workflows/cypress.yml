@@ -2,11 +2,9 @@ name: Cypress Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   cypress-run:
@@ -24,14 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Corrigir permissões do binário Cypress
+      - name: Corrigir permissões do Cypress
         run: chmod +x node_modules/.bin/cypress
 
-      - name: Install Cypress binary
-        run: npx cypress install
-
-      - name: Debug Cypress binário
-        run: ls -l node_modules/.bin/cypress
-        
       - name: Run Cypress tests
+        env:
+          TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+          TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
         run: npx cypress run
