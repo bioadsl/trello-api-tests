@@ -22,10 +22,13 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      # Baixar e instalar o binário do Cypress com permissões corretas
-      - name: Instalar Cypress (sem cache)
+      # Ajustar permissões do binário Cypress no node_modules
+      - name: Ajustar permissões do Cypress local
+        run: chmod +x node_modules/.bin/cypress
+
+      # Instalar Cypress e corrigir permissões do binário baixado
+      - name: Instalar Cypress e corrigir permissões
         run: |
-          npx cypress cache path
           npx cypress install
           chmod +x ~/.cache/Cypress/*/Cypress/Cypress
 
@@ -34,3 +37,4 @@ jobs:
           TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
           TRELLO_API_TOKEN: ${{ secrets.TRELLO_API_TOKEN }}
         run: npx cypress run
+
